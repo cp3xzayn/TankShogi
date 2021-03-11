@@ -6,19 +6,28 @@ using DG.Tweening;
 public class PieceMoveController : MonoBehaviour
 {
     [SerializeField] Transform t = null;
-    Vector3 v = new Vector3(1.5f, 0.5f, 1.5f);
-
-    void Start()
-    {
-        
-    }
+    Vector3 m_nextPosition;
 
     void Update()
     {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 10.0f))
+        {
+            if (Input.GetMouseButton(0))
+            {
+                m_nextPosition = new Vector3(hit.collider.gameObject.transform.position.x,
+                    hit.collider.gameObject.transform.position.y + 0.5f, 
+                    hit.collider.gameObject.transform.position.z);
+                PieceMove(m_nextPosition);
+            }
+        }
+    }
+
+    void PieceMove(Vector3 v)
+    {
         //1秒で座標（1,1,1）に移動
-        t.DOMove( v,  //移動後の座標
-            1.0f       //時間
-            );
+        t.DOMove(v, 1.0f);
     }
 
     void check(Koma selectkoma)

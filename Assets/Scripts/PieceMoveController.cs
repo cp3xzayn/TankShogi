@@ -8,15 +8,26 @@ public class PieceMoveController : MonoBehaviour
     [SerializeField] Transform t = null;
     Vector3 m_nextPosition;
 
+    private bool isSelect;
+
+    public bool IsSelect
+    {
+        set { isSelect = value; }
+        get { return isSelect; }
+    }
+
     void Update()
     {
-        JudgmnetPlayerOrEnemy();
+        if (TurnManager.Instance.NowState == GameState.MoveMyPiece && IsSelect == true)
+        {
+            SetPosMove();
+        }
     }
 
     /// <summary>
     /// 駒の移動をする関数
     /// </summary>
-    /// <param name="v"></param>
+    /// <param name="v"> 移動後のポジション </param>
     void PieceMove(Vector3 v)
     {
         //1秒で座標（1,1,1）に移動
@@ -38,33 +49,6 @@ public class PieceMoveController : MonoBehaviour
                     hit.collider.gameObject.transform.position.y + 0.5f,
                     hit.collider.gameObject.transform.position.z);
                 PieceMove(m_nextPosition);
-                if (this.gameObject.tag == "Player")
-                {
-                    TurnManager.Instance.SetNoState(GameState.EndMyTurn);
-                }
-                else if (this.gameObject.tag == "Enemy")
-                {
-                    TurnManager.Instance.SetNoState(GameState.EndEneTurn);
-                }
-            }
-        }
-    }
-
-    void JudgmnetPlayerOrEnemy()
-    {
-        if (this.gameObject.tag == "Player")
-        {
-            Debug.Log("a");
-            if (TurnManager.Instance.NowState == GameState.BeginMyTurn)
-            {
-                SetPosMove();
-            }
-        }
-        else if (this.gameObject.tag == "Enemy")
-        {
-            if (TurnManager.Instance.NowState == GameState.BeginEneTurn)
-            {
-                SetPosMove();
             }
         }
     }

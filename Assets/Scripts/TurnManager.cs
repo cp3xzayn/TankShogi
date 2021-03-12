@@ -15,10 +15,10 @@ public class TurnManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
-        SetNoState(GameState.BeginMyTurn);
+        SetNowState(GameState.BeginMyTurn);
     }
 
-    public void SetNoState(GameState state)
+    public void SetNowState(GameState state)
     {
         nowState = state;
         OnGameStateChanged(nowState);
@@ -40,14 +40,14 @@ public class TurnManager : MonoBehaviour
                 break;
             case GameState.EndMyTurn:
                 Debug.Log("GameState.EndMyTurn");
-                SetNoState(GameState.BeginEneTurn);
+                SetNowState(GameState.BeginEneTurn);
                 break;
             case GameState.BeginEneTurn:
                 Debug.Log("GameState.BeginEneTurn");
                 break;
             case GameState.EndEneTurn:
                 Debug.Log("GameState.EndEneTurn");
-                SetNoState(GameState.BeginMyTurn);
+                SetNowState(GameState.BeginMyTurn);
                 break;
             default:
                 break;
@@ -56,7 +56,7 @@ public class TurnManager : MonoBehaviour
 
     void OnBeginMyTurn()
     {
-        SetNoState(GameState.SelectMyPiece);
+        SetNowState(GameState.SelectMyPiece);
     }
 }
 

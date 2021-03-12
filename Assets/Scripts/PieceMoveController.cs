@@ -31,7 +31,7 @@ public class PieceMoveController : MonoBehaviour
     void PieceMove(Vector3 v)
     {
         //1秒で座標（1,1,1）に移動
-        t.DOMove(v, 1.0f);
+        t.DOMove(v, 1.0f).OnComplete(() => TurnManager.Instance.SetNowState(GameState.EndMyTurn));
     }
 
     /// <summary>

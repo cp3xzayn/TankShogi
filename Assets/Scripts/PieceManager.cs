@@ -34,7 +34,7 @@ public class PieceManager : MonoBehaviour
 
     IEnumerator NextGameState()
     {
-        yield return new WaitForSeconds(4f);
-        TurnManager.Instance.SetNoState(GameState.MoveMyPiece);
+        yield return new WaitForSeconds(2f);
+        TurnManager.Instance.SetNowState(GameState.MoveMyPiece);
     }
 }

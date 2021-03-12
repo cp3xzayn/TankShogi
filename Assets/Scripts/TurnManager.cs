@@ -45,6 +45,12 @@ public class TurnManager : MonoBehaviour
             case GameState.BeginEneTurn:
                 Debug.Log("GameState.BeginEneTurn");
                 break;
+            case GameState.SelectEnePiece:
+                Debug.Log("GameState.SelectEnePiece");
+                break;
+            case GameState.MoveEnePiece:
+                Debug.Log("GameState.MoveEnePiece");
+                break;
             case GameState.EndEneTurn:
                 Debug.Log("GameState.EndEneTurn");
                 SetNowState(GameState.BeginMyTurn);
@@ -69,5 +75,7 @@ public enum GameState
     MoveMyPiece,
     EndMyTurn,
     BeginEneTurn,
+    SelectEnePiece,
+    MoveEnePiece,
     EndEneTurn
 }

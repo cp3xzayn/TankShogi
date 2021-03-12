@@ -8,9 +8,7 @@ public class PieceManager : MonoBehaviour
     {
         SelectPiece();
     }
-
-    [SerializeField] Material m_selectedMaterial = null;
-
+    
     void SelectPiece()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -23,7 +21,7 @@ public class PieceManager : MonoBehaviour
                 {
                     if (hit.collider.gameObject.tag == "Player")
                     {
-                        hit.collider.gameObject.GetComponent<MeshRenderer>().material = m_selectedMaterial;
+                        hit.collider.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
                         hit.collider.gameObject.GetComponent<PieceMoveController>().IsSelect = true;
                         StartCoroutine("NextGameState");
                     }

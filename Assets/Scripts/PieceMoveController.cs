@@ -16,7 +16,7 @@ public class PieceMoveController : MonoBehaviour
     /// <summary> 選択されたかを判断する </summary>
     private bool isSelect;
     bool isMove = true;
-
+    /// <summary> 駒の所属 </summary>
     [SerializeField] GroupType group;
 
     /// <summary>
@@ -42,7 +42,7 @@ public class PieceMoveController : MonoBehaviour
     /// <summary>
     /// 駒の移動をする関数
     /// </summary>
-    /// <param name="v"> 移動後のポジション </param>
+    /// <param name="v"> 移動先のポジション </param>
     void PieceMove(Vector3 v)
     {
         isMove = false;
@@ -84,8 +84,31 @@ public class PieceMoveController : MonoBehaviour
                 Vector3 m_nextPosition = new Vector3(hit.collider.gameObject.transform.position.x,
                     hit.collider.gameObject.transform.position.y + 0.5f,
                     hit.collider.gameObject.transform.position.z);
-                PieceMove(m_nextPosition);
+                if (FieldManager.Field[(int)m_nextPosition.x, (int)m_nextPosition.z] == FieldState.Empty)
+                {
+                    PieceMove(m_nextPosition);
+                    FieldStateChange(m_nextPosition);
+                }
             }
+        }
+    }
+
+    /// <summary>
+    /// Fieldの情報を変える
+    /// </summary>
+    /// <param name="v">移動先のポジション</param>
+    void FieldStateChange(Vector3 v)
+    {
+        switch (group)
+        {
+            case GroupType.Player:
+                FieldManager.Field[(int)v.x, (int)v.z] = FieldState.MyPiece;
+                Debug.Log($"{(int)v.x},{(int)v.z},{FieldManager.Field[(int)v.x, (int)v.z]}");
+                break;
+            case GroupType.Enemy:
+                FieldManager.Field[(int)v.x, (int)v.z] = FieldState.EnePiece;
+                Debug.Log($"{(int)v.x},{(int)v.z},{FieldManager.Field[(int)v.x, (int)v.z]}");
+                break;
         }
     }
 }

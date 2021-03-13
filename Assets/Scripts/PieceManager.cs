@@ -13,26 +13,47 @@ public class PieceManager : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (TurnManager.Instance.NowState == GameState.SelectMyPiece)
+        switch (TurnManager.Instance.NowState)
         {
-            if (Physics.Raycast(ray, out hit, 10.0f))
-            {
-                if (Input.GetMouseButton(0))
+            case GameState.SelectMyPiece:
+                if (Physics.Raycast(ray, out hit, 10.0f))
                 {
-                    if (hit.collider.gameObject.tag == "Player")
+                    if (Input.GetMouseButton(0))
                     {
-                        hit.collider.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
-                        hit.collider.gameObject.GetComponent<PieceMoveController>().IsSelect = true;
-                        StartCoroutine("NextGameState");
+                        if (hit.collider.gameObject.tag == "Player")
+                        {
+                            hit.collider.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+                            hit.collider.gameObject.GetComponent<PieceMoveController>().IsSelect = true;
+                            StartCoroutine("NextMyGameState");
+                        }
                     }
                 }
-            }
+                break;
+            case GameState.SelectEnePiece:
+                if (Physics.Raycast(ray, out hit, 10.0f))
+                {
+                    if (Input.GetMouseButton(0))
+                    {
+                        if (hit.collider.gameObject.tag == "Enemy")
+                        {
+                            hit.collider.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+                            hit.collider.gameObject.GetComponent<PieceMoveController>().IsSelect = true;
+                            StartCoroutine("NextEneGameState");
+                        }
+                    }
+                }
+                break;
         }
     }
 
-    IEnumerator NextGameState()
+    IEnumerator NextMyGameState()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         TurnManager.Instance.SetNowState(GameState.MoveMyPiece);
+    }
+    IEnumerator NextEneGameState()
+    {
+        yield return new WaitForSeconds(1f);
+        TurnManager.Instance.SetNowState(GameState.MoveEnePiece);
     }
 }

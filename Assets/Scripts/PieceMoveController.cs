@@ -3,13 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
+public enum GroupType
+{
+    Player,
+    Enemy
+}
+
 public class PieceMoveController : MonoBehaviour
 {
-    /// <summary> 駒の情報 <summary>
+    /// <summary> 駒の位置情報 <summary>
     [SerializeField] Transform t = null;
     /// <summary> 選択されたかを判断する </summary>
     private bool isSelect;
     bool isMove = true;
+
+    [SerializeField] GroupType group;
 
     /// <summary>
     /// 選択されたかを判断する
@@ -22,9 +30,12 @@ public class PieceMoveController : MonoBehaviour
 
     void Update()
     {
-        if (TurnManager.Instance.NowState == GameState.MoveMyPiece && IsSelect)
+        if (IsSelect)
         {
-            SetPosMove();
+            if (TurnManager.Instance.NowState == GameState.MoveMyPiece || TurnManager.Instance.NowState == GameState.MoveEnePiece)
+            {
+                SetPosMove();
+            }
         }
     }
 
@@ -40,13 +51,23 @@ public class PieceMoveController : MonoBehaviour
     }
 
     /// <summary>
-    /// Stateと駒の色を変更する関数
+    /// GameStateと駒の色を変更する関数
     /// </summary>
     void OnChange()
     {
         this.gameObject.GetComponent<MeshRenderer>().material.color = Color.white;
+        IsSelect = false;
         isMove = true;
-        TurnManager.Instance.SetNowState(GameState.EndMyTurn);
+        switch (group)
+        {
+            case GroupType.Player:
+                TurnManager.Instance.SetNowState(GameState.EndMyTurn);
+                break;
+            case GroupType.Enemy:
+                TurnManager.Instance.SetNowState(GameState.EndEneTurn);
+                break;
+        }
+        
     }
 
     /// <summary>

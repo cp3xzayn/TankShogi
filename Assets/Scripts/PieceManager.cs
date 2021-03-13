@@ -9,6 +9,9 @@ public class PieceManager : MonoBehaviour
         SelectPiece();
     }
     
+    /// <summary>
+    /// 駒を選んだ時の処理
+    /// </summary>
     void SelectPiece()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -24,6 +27,7 @@ public class PieceManager : MonoBehaviour
                         {
                             hit.collider.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
                             hit.collider.gameObject.GetComponent<PieceMoveController>().IsSelect = true;
+                            hit.collider.gameObject.GetComponent<PieceMoveController>().FieldColor();
                             StartCoroutine("NextMyGameState");
                         }
                     }

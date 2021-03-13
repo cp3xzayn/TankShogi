@@ -56,8 +56,6 @@ public class TurnManager : MonoBehaviour
                 Debug.Log("GameState.EndEneTurn");
                 OnEndEneTurn();
                 break;
-            default:
-                break;
         }
     }
 

@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class FieldManager : MonoBehaviour
 {
-    
+    [SerializeField] GameObject[,] m_field;
 }

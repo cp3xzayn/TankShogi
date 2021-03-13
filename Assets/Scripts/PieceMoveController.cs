@@ -41,49 +41,11 @@ public class PieceMoveController : MonoBehaviour
         get { return isSelect; }
     }
 
-    int m_up;
-    int m_down;
-    int m_left;
-    int m_right;
+    int fieldWid;
 
-    void Awake()
+    private void Start()
     {
-        MoveableRange();
-    }
-
-    /// <summary>
-    /// 移動できる範囲をセットする関数
-    /// </summary>
-    void MoveableRange()
-    {
-        if (group == GroupType.Player)
-        {
-            switch (piece)
-            {
-                case PieceType.Hohei:
-                    m_up = 1;
-                    m_down = 0;
-                    m_left = 0;
-                    m_right = 0;
-                    break;
-                default:
-                    break;
-            }
-        }
-        else if (group == GroupType.Enemy)
-        {
-            switch (piece)
-            {
-                case PieceType.Hohei:
-                    m_up = 0;
-                    m_down = 1;
-                    m_left = 0;
-                    m_right = 0;
-                    break;
-                default:
-                    break;
-            }
-        }
+        fieldWid = FieldInfo.FieldWidth;
     }
 
     void Update()
@@ -133,7 +95,6 @@ public class PieceMoveController : MonoBehaviour
     /// </summary>
     void SetPosMove()
     {
-        Transform thisGo = this.gameObject.transform;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 10.0f))
@@ -141,59 +102,14 @@ public class PieceMoveController : MonoBehaviour
             if (Input.GetMouseButton(0) && isMove)
             {
                 Transform hitGameObject = hit.collider.gameObject.transform;
-                if (group == GroupType.Player)
+                Vector3 m_nextPosition = new Vector3(hitGameObject.position.x, hitGameObject.position.y + 0.5f, hitGameObject.position.z);
+                if (FieldInfo.Field[(int)m_nextPosition.x * fieldWid +(int)m_nextPosition.z] == FieldState.Empty)
                 {
-                    if (hitGameObject.position.x <= thisGo.position.x + m_up &&
-                        hitGameObject.position.x >= thisGo.position.x - m_down &&
-                        hitGameObject.position.z <= thisGo.position.z + m_left &&
-                        hitGameObject.position.z >= thisGo.position.z - m_right )
-                    {
-                        Vector3 m_nextPosition = new Vector3(hitGameObject.position.x, hitGameObject.position.y + 0.5f, hitGameObject.position.z);
-                        if (FieldInfo.Field[(int)m_nextPosition.x, (int)m_nextPosition.z] == FieldState.Empty)
-                        {
-                            PieceMove(m_nextPosition);
-                            FieldStateChange(m_nextPosition);
-                        }
-                    }
-                    else
-                    {
-                        Debug.Log("移動できる範囲外です");
-                    }
+                    PieceMove(m_nextPosition);
+                    FieldStateChange(m_nextPosition);
                 }
-                else if (group == GroupType.Enemy)
-                {
-                    if (hitGameObject.position.x <= thisGo.position.x + m_up &&
-                        hitGameObject.position.x >= thisGo.position.x - m_down &&
-                        hitGameObject.position.z <= thisGo.position.z + m_left &&
-                        hitGameObject.position.z >= thisGo.position.z - m_right )
-                    {
-                        Vector3 m_nextPosition = new Vector3(hitGameObject.position.x, hitGameObject.position.y + 0.5f, hitGameObject.position.z);
-                        if (FieldInfo.Field[(int)m_nextPosition.x, (int)m_nextPosition.z] == FieldState.Empty)
-                        {
-                            PieceMove(m_nextPosition);
-                            FieldStateChange(m_nextPosition);
-                        }
-                    }
-                    else
-                    {
-                        Debug.Log("移動できる範囲外です");
-                    }
-                }
-                
             }
         }
-    }
-
-    public void FieldColor()
-    {
-        m_field.GetComponent<MeshRenderer>().material.color = Color.yellow;
-    }
-
-    GameObject m_field;
-
-    void OnCollisionStay(Collision col)
-    {
-        m_field = col.gameObject;
     }
 
     /// <summary>
@@ -205,12 +121,12 @@ public class PieceMoveController : MonoBehaviour
         switch (group)
         {
             case GroupType.Player:
-                FieldInfo.Field[(int)v.x, (int)v.z] = FieldState.MyPiece;
-                Debug.Log($"{(int)v.x},{(int)v.z},{FieldInfo.Field[(int)v.x, (int)v.z]}");
+                FieldInfo.Field[(int)v.x * fieldWid + (int)v.z] = FieldState.MyPiece;
+                Debug.Log($"{(int)v.x * fieldWid + (int)v.z},{FieldInfo.Field[(int)v.x * fieldWid + (int)v.z]}");
                 break;
             case GroupType.Enemy:
-                FieldInfo.Field[(int)v.x, (int)v.z] = FieldState.EnePiece;
-                Debug.Log($"{(int)v.x},{(int)v.z},{FieldInfo.Field[(int)v.x, (int)v.z]}");
+                FieldInfo.Field[(int)v.x * fieldWid + (int)v.z] = FieldState.EnePiece;
+                Debug.Log($"{(int)v.x * fieldWid + (int)v.z},{FieldInfo.Field[(int)v.x * fieldWid + (int)v.z]}");
                 break;
         }
     }

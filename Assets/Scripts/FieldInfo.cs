@@ -3,12 +3,19 @@
 /// </summary>
 public class FieldInfo
 {
-    static FieldState[,] m_field = new FieldState[7, 5];
+    static FieldState[] m_field = new FieldState[35];
 
-    public static FieldState[,] Field
+    public static FieldState[] Field
     {
         set { m_field = value; }
         get { return m_field; }
+    }
+
+    static int m_fieldWidth = 5;
+
+    public static int FieldWidth
+    {
+        get { return m_fieldWidth; }
     }
 
     void Awake()
@@ -21,23 +28,20 @@ public class FieldInfo
     /// </summary>
     void SetFieldInfo()
     {
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < 35; i++)
         {
-            for (int j = 0; j < 5; j++)
-            {
-                m_field[i, j] = FieldState.Empty;
-            }
+            m_field[i] = FieldState.Empty;
         }
-        m_field[1, 0] = FieldState.MyPiece;
-        m_field[1, 1] = FieldState.MyPiece;
-        m_field[1, 2] = FieldState.MyPiece;
-        m_field[1, 3] = FieldState.MyPiece;
-        m_field[1, 4] = FieldState.MyPiece;
-        m_field[5, 0] = FieldState.EnePiece;
-        m_field[5, 1] = FieldState.EnePiece;
-        m_field[5, 2] = FieldState.EnePiece;
-        m_field[5, 3] = FieldState.EnePiece;
-        m_field[5, 4] = FieldState.EnePiece;
+        m_field[5] = FieldState.MyPiece;
+        m_field[6] = FieldState.MyPiece;
+        m_field[7] = FieldState.MyPiece;
+        m_field[8] = FieldState.MyPiece;
+        m_field[9] = FieldState.MyPiece;
+        m_field[25] = FieldState.EnePiece;
+        m_field[26] = FieldState.EnePiece;
+        m_field[27] = FieldState.EnePiece;
+        m_field[28] = FieldState.EnePiece;
+        m_field[29] = FieldState.EnePiece;
     }
 }
 

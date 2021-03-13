@@ -27,7 +27,6 @@ public class PieceManager : MonoBehaviour
                         {
                             hit.collider.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
                             hit.collider.gameObject.GetComponent<PieceMoveController>().IsSelect = true;
-                            hit.collider.gameObject.GetComponent<PieceMoveController>().FieldColor();
                             StartCoroutine("NextMyGameState");
                         }
                     }

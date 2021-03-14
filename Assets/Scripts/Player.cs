@@ -6,6 +6,7 @@ public class Player
     public List<GameObject> capturedPieces;
 
     public string name;
+    /// <summary> 駒の正面の情報(1が上、-1が下) </summary>
     public int forward;
 
     public Player(string name, bool zMovement)

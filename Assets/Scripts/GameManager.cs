@@ -26,6 +26,9 @@ public class GameManager : MonoBehaviour
         InitialSetUp();
     }
 
+    /// <summary>
+    /// 駒の初期化
+    /// </summary>
     void InitialSetUp()
     {
         for (int i = 0; i < 5; i++)
@@ -38,6 +41,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 駒をpieces[,]に追加する関数
+    /// </summary>
+    /// <param name="g"> 生成する駒 </param>
+    /// <param name="player"></param>
+    /// <param name="col"> 縦 </param>
+    /// <param name="row"> 横 </param>
     public void AddPiece(GameObject g, Player player, int col, int row)
     {
         GameObject pieceObject = fieldManager.AddPiece(g, col, row);

@@ -290,7 +290,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: -0.50000006, y: -0.50000006, z: 0.5, w: -0.5}
-  m_LocalPosition: {x: 3, y: 5, z: 2}
+  m_LocalPosition: {x: 3.5, y: 5, z: 2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -586,7 +586,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1636943480}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5, y: 0, z: -0.5}
+  m_LocalPosition: {x: 0, y: -0.001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -646,6 +646,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1912997724}
+  - component: {fileID: 1912997725}
   m_Layer: 0
   m_Name: SelectPeiceManager
   m_TagString: Untagged
@@ -667,6 +668,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1912997725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912997723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5e53ee582ed972429f2576c69cf69a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_field: {fileID: 1636943480}
+  m_moveableField: {fileID: 4253766482031395989, guid: c79a710307fb61440bc1feb092b5a07b,
+    type: 3}
+  m_selectedField: {fileID: 8439050703850296232, guid: b36627e0272cf234aa4aced7c67c5dd6,
+    type: 3}
+  m_attackField: {fileID: 5540674159158473984, guid: b290cfbf627ee0c42a66706518bff717,
+    type: 3}
 --- !u!43 &1949265660
 Mesh:
   m_ObjectHideFlags: 0

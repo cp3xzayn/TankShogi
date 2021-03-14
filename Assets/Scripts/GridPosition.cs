@@ -13,6 +13,7 @@ public class GridPosition
         float z = 0.5f + gridPoint.y;
         return new Vector3(x, 0.5f, z);
     }
+
     /// <summary>
     /// 取得したGrid情報を位置情報に変換し返すメソッド（Field用）
     /// </summary>

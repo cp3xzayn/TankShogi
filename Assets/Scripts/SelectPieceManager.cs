@@ -19,7 +19,9 @@ public class SelectPieceManager : MonoBehaviour
     private GameObject m_tileHighlight;
     /// <summary> 動かす駒 </summary>
     private GameObject movingPiece;
+    /// <summary>  </summary>
     private List<Vector2Int> moveLocations;
+    /// <summary> 移動できる場所を表示するGameObjectを格納するList </summary>
     private List<GameObject> locationHighlights;
 
     void Start()
@@ -60,6 +62,7 @@ public class SelectPieceManager : MonoBehaviour
                 }
                 else
                 {
+                    GameManager.instance.CapturePieceAt(gridPoint);
                     GameManager.instance.Move(movingPiece, gridPoint);
                 }
                 ExitState();
@@ -106,9 +109,10 @@ public class SelectPieceManager : MonoBehaviour
         foreach (Vector2Int loc in moveLocations)
         {
             GameObject highlight;
-            // 駒がが戻り値である場合
+            // 駒が戻り値である場合
             if (GameManager.instance.PieceAtGrid(loc))
             {
+                Debug.Log("駒を取ることができます");
                 // 駒を獲得できることを示すオブジェクトを生成する
                 highlight = Instantiate(m_attackField,
                     GridPosition.PointFromGridForField(loc), Quaternion.identity);

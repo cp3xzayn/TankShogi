@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// 特定の条件を満たした駒を削除し、駒のListを返すメソッド
     /// </summary>
     /// <param name="pieceObject"></param>
     /// <returns></returns>
@@ -72,9 +72,10 @@ public class GameManager : MonoBehaviour
         Pieces piece = pieceObject.GetComponent<Pieces>();
         Vector2Int gridPoint = GridForPiece(pieceObject);
         List<Vector2Int> locations = piece.MoveLocation(gridPoint);
-
+        // gp(駒の位置情報)が盤面外にあるものをすべて削除している（ラムダ式）
         locations.RemoveAll(gp => gp.x < 0 || gp.x > 7 || gp.y < 0 || gp.y > 5);
-
+        // gp(駒の位置情報)が含まれたものをListからすべて削除している（ラムダ式）
+        locations.RemoveAll(gp => FriendlyPieceAt(gp));
         return locations;
     }
 
@@ -85,7 +86,6 @@ public class GameManager : MonoBehaviour
     /// <param name="gridPoint"></param>
     public void Move(GameObject piece, Vector2Int gridPoint)
     {
-        Pieces piecesComponent = piece.GetComponent<Pieces>();
         Vector2Int startGridPosition = GridForPiece(piece);
         // 駒が元居た位置をnullにする
         pieces[startGridPosition.x, startGridPosition.y] = null;
@@ -94,6 +94,24 @@ public class GameManager : MonoBehaviour
         fieldManager.PieceMoved(piece, gridPoint);
     }
 
+    /// <summary>
+    /// 敵の駒を取得したときの処理
+    /// </summary>
+    /// <param name="gridPoint"></param>
+    public void CapturePieceAt(Vector2Int gridPoint)
+    {
+        // 取った駒を取得
+        GameObject pieceToCapture = PieceAtGrid(gridPoint);
+        // 王将を取ったとき
+        if (pieceToCapture.GetComponent<Pieces>().pieceType == PieceType.Ousho)
+        {
+            Debug.Log(currentPlayer.name + "Win!");
+        }
+        currentPlayer.capturedPieces.Add(pieceToCapture);
+        pieces[gridPoint.x, gridPoint.y] = null;
+        // 現状取った駒は破壊している。
+        Destroy(pieceToCapture);
+    }
     
     /// <summary>
     /// 駒が選択されたときの処理
@@ -118,7 +136,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="piece"></param>
     /// <returns></returns>
-    public bool isPieceBelongPlayer(GameObject piece)
+    public bool IsPieceBelongPlayer(GameObject piece)
     {
         return currentPlayer.pieces.Contains(piece);
     }
@@ -130,7 +148,7 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     public GameObject PieceAtGrid(Vector2Int gridPoint)
     {
-        if (gridPoint.x > 7 || gridPoint.y > 7 || gridPoint.x < 0 || gridPoint.y < 0)
+        if (gridPoint.x > 7 || gridPoint.y > 5 || gridPoint.x < 0 || gridPoint.y < 0)
         {
             return null;
         }
@@ -155,6 +173,27 @@ public class GameManager : MonoBehaviour
             }
         }
         return new Vector2Int(-1, -1);
+    }
+
+    /// <summary>
+    /// 盤面に自分の駒があるか、敵の駒があるか、何もないかを判定する
+    /// </summary>
+    /// <param name="gridPoint"></param>
+    /// <returns></returns>
+    public bool FriendlyPieceAt(Vector2Int gridPoint)
+    {
+        GameObject piece = PieceAtGrid(gridPoint);
+
+        if (piece == null)
+        {
+            return false;
+        }
+        if (otherPlayer.pieces.Contains(piece))
+        {
+            return false;
+        }
+
+        return true;
     }
 
     /// <summary>

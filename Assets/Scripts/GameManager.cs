@@ -87,10 +87,10 @@ public class GameManager : MonoBehaviour
     public void Move(GameObject piece, Vector2Int gridPoint)
     {
         Pieces piecesComponent = piece.GetComponent<Pieces>();
-        if (piecesComponent.pieceType == PieceType.Hohei)
-        {
-            movedHohei.Add(piece);
-        }
+        //if (piecesComponent.pieceType == PieceType.Hohei)
+        //{
+        //    movedHohei.Add(piece);
+        //}
         Vector2Int startGridPosition = GridForPiece(piece);
         // 駒が元居た位置をnullにする
         pieces[startGridPosition.x, startGridPosition.y] = null;

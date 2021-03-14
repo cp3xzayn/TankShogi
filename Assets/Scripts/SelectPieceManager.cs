@@ -15,6 +15,8 @@ public class SelectPieceManager : MonoBehaviour
     /// <summary> 移動できる場所に表示するGameObject </summary>
     [SerializeField] GameObject m_moveableField = null;
 
+    [SerializeField] GameObject m_tileSelect = null;
+
     private GameObject m_tileHighlight;
     /// <summary> 動かす駒 </summary>
     private GameObject movingPiece;
@@ -129,12 +131,11 @@ public class SelectPieceManager : MonoBehaviour
     private void ExitState()
     {
         this.enabled = false;
-        TileSelect select = GetComponent<TileSelect>();
         m_tileHighlight.SetActive(false);
         GameManager.instance.DeselectedPieces(movingPiece);
         movingPiece = null;
         GameManager.instance.NextPlayer();
-        select.EnterState();
+        m_tileSelect.GetComponent<TileSelect>().EnterState();
         foreach (GameObject highlight in locationHighlights)
         {
             Destroy(highlight);

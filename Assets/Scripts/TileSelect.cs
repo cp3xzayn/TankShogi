@@ -32,7 +32,6 @@ public class TileSelect : MonoBehaviour
                 if (GameManager.instance.isPieceBelongPlayer(selectedPiece))
                 {
                     GameManager.instance.SelectPiece(selectedPiece);
-                    Debug.Log(selectedPiece.name);
                     ExitState(selectedPiece);
                 }
             }

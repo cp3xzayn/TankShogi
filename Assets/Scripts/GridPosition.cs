@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// GrdとPointをそれぞれ変換するためのクラス
+/// </summary>
 public class GridPosition
 {
     /// <summary>

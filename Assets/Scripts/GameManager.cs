@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
 
     /// <summary> 盤面上にある駒を格納する配列 </summary>
     private GameObject[,] pieces;
-    private List<GameObject> movedHohei;
     private Player player;
     private Player enemy;
     public Player currentPlayer;
@@ -87,10 +86,6 @@ public class GameManager : MonoBehaviour
     public void Move(GameObject piece, Vector2Int gridPoint)
     {
         Pieces piecesComponent = piece.GetComponent<Pieces>();
-        //if (piecesComponent.pieceType == PieceType.Hohei)
-        //{
-        //    movedHohei.Add(piece);
-        //}
         Vector2Int startGridPosition = GridForPiece(piece);
         // 駒が元居た位置をnullにする
         pieces[startGridPosition.x, startGridPosition.y] = null;
@@ -99,6 +94,7 @@ public class GameManager : MonoBehaviour
         fieldManager.PieceMoved(piece, gridPoint);
     }
 
+    
     /// <summary>
     /// 駒が選択されたときの処理
     /// </summary>
@@ -166,8 +162,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void NextPlayer()
     {
-        Player plyer = currentPlayer;
+        Player tempPlayer = currentPlayer;
         currentPlayer = otherPlayer;
-        otherPlayer = player;
+        otherPlayer = tempPlayer;
     }
 }

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 歩兵の情報を持つ派生クラス
+/// </summary>
 public  class Hohei : Pieces
 {
     public override List<Vector2Int> MoveLocation(Vector2Int gridPoint)

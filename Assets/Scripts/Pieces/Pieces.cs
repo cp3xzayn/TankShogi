@@ -13,7 +13,7 @@ public enum PieceType
 }
 
 /// <summary>
-/// 駒の元となる情報を持つクラス
+/// 駒の情報を持つ基盤クラス
 /// </summary>
 public abstract class Pieces : MonoBehaviour
 {

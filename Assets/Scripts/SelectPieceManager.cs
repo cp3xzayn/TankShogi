@@ -7,14 +7,13 @@ using UnityEngine;
 /// </summary>
 public class SelectPieceManager : MonoBehaviour
 {
-    [SerializeField] GameObject m_field = null;
     /// <summary> マウスカーソルのあった面に表示するGameObject </summary>
     [SerializeField] GameObject m_selectedField = null;
     /// <summary> 敵の駒が取れる位置にあるときに表示するGameObject </summary>
     [SerializeField] GameObject m_attackField = null;
     /// <summary> 移動できる場所に表示するGameObject </summary>
     [SerializeField] GameObject m_moveableField = null;
-
+    /// <summary> TileSelectコンポーネント </summary>
     [SerializeField] GameObject m_tileSelect = null;
 
     private GameObject m_tileHighlight;
@@ -85,8 +84,7 @@ public class SelectPieceManager : MonoBehaviour
         }
 
         GameManager.instance.DeselectedPieces(movingPiece);
-        TileSelect select = GetComponent<TileSelect>();
-        select.EnterState();
+        m_tileSelect.GetComponent<TileSelect>().EnterState();
     }
 
     /// <summary>

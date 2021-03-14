@@ -152,6 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MovePosition: {fileID: 8439050703850296232, guid: b36627e0272cf234aa4aced7c67c5dd6,
     type: 3}
+  m_selectPieceManager: {fileID: 1912997723}
 --- !u!4 &593606163
 Transform:
   m_ObjectHideFlags: 0
@@ -732,6 +733,7 @@ MonoBehaviour:
     type: 3}
   m_moveableField: {fileID: 4253766482031395989, guid: c79a710307fb61440bc1feb092b5a07b,
     type: 3}
+  m_tileSelect: {fileID: 593606161}
 --- !u!43 &1949265660
 Mesh:
   m_ObjectHideFlags: 0

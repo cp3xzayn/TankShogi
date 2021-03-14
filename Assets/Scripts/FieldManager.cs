@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// 盤面を管理するクラス
+/// </summary>
 public class FieldManager : MonoBehaviour
 {
     /// <summary>

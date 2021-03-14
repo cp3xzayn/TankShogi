@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using DG.Tweening;
 
 /// <summary>
 /// 盤面を管理するクラス
@@ -26,7 +27,9 @@ public class FieldManager : MonoBehaviour
     /// <param name="gridPoint"> 駒の移動先 </param>
     public void PieceMoved(GameObject piece, Vector2Int gridPoint)
     {
-        piece.transform.position = GridPosition.PointFromGrid(gridPoint);
+        Vector3 nextPosition = GridPosition.PointFromGrid(gridPoint);
+        piece.transform.DOMove(nextPosition, 1.0f);
+        //piece.transform.position = GridPosition.PointFromGrid(gridPoint);
     }
 
     /// <summary>

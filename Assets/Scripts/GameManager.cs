@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     [SerializeField] FieldManager fieldManager = null;
     [SerializeField] GameObject m_hohei = null;
+    [SerializeField] GameObject m_ginsho = null;
 
     /// <summary> 盤面上にある駒を格納する配列 </summary>
     private GameObject[,] pieces;
@@ -42,10 +43,14 @@ public class GameManager : MonoBehaviour
         {
             AddPiece(m_hohei, player, 1, i);
         }
+        AddPiece(m_ginsho, player, 0, 0);
+        AddPiece(m_ginsho, player, 0, 4);
         for (int j = 0; j < 5; j++)
         {
             AddPiece(m_hohei, enemy, 5, j);
         }
+        AddPiece(m_ginsho, enemy, 6, 0);
+        AddPiece(m_ginsho, enemy, 6, 4);
     }
 
     /// <summary>
@@ -73,7 +78,7 @@ public class GameManager : MonoBehaviour
         Vector2Int gridPoint = GridForPiece(pieceObject);
         List<Vector2Int> locations = piece.MoveLocation(gridPoint);
         // gp(駒の位置情報)が盤面外にあるものをすべて削除している（ラムダ式）
-        locations.RemoveAll(gp => gp.x < 0 || gp.x > 7 || gp.y < 0 || gp.y > 5);
+        locations.RemoveAll(gp => gp.x < 0 || gp.x > 6 || gp.y < 0 || gp.y > 4);
         // gp(駒の位置情報)が含まれたものをListからすべて削除している（ラムダ式）
         locations.RemoveAll(gp => FriendlyPieceAt(gp));
         return locations;
@@ -148,7 +153,7 @@ public class GameManager : MonoBehaviour
     /// <returns></returns>
     public GameObject PieceAtGrid(Vector2Int gridPoint)
     {
-        if (gridPoint.x > 7 || gridPoint.y > 5 || gridPoint.x < 0 || gridPoint.y < 0)
+        if (gridPoint.x > 6 || gridPoint.y > 4 || gridPoint.x < 0 || gridPoint.y < 0)
         {
             return null;
         }

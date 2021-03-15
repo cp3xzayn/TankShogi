@@ -703,6 +703,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fieldManager: {fileID: 1215032436}
   m_hohei: {fileID: 3754434679281599395, guid: c24d7f0cb72a81141a7e4e5edbfd38b0, type: 3}
+  m_ginsho: {fileID: 1854259134040393515, guid: 9d7b25c38c76f864db6ce330244496aa,
+    type: 3}
 --- !u!4 &1862420535
 Transform:
   m_ObjectHideFlags: 0

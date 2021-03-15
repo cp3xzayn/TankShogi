@@ -4,7 +4,8 @@
 ### 制作目的
 
 設計を勉強する。
-参考:https://www.raywenderlich.com/5441-how-to-make-a-chess-game-with-unity
+
+参考：https://www.raywenderlich.com/5441-how-to-make-a-chess-game-with-unity
 
 カメラの演出を勉強する。
 

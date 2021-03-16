@@ -22,6 +22,7 @@ public class Ginsho : Pieces
         {
             locations.Add(forward);
         }
+        // 斜め方向の移動
 
         foreach (Vector2Int dir in direction)
         {

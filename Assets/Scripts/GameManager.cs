@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     [SerializeField] FieldManager fieldManager = null;
     [SerializeField] GameObject m_hohei = null;
     [SerializeField] GameObject m_ginsho = null;
+
+    [SerializeField] Text m_turnText = null;
 
     /// <summary> 盤面上にある駒を格納する配列 </summary>
     private GameObject[,] pieces;
@@ -25,11 +27,13 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         pieces = new GameObject[7, 5];
-        player = new Player("player", true);
+        player = new Player("Player", true);
         enemy = new Player("Enemy", false);
 
         currentPlayer = player;
         otherPlayer = enemy;
+
+        m_turnText.text = currentPlayer.name + "Turn";
 
         InitialSetUp();
     }
@@ -208,6 +212,7 @@ public class GameManager : MonoBehaviour
     {
         Player tempPlayer = currentPlayer;
         currentPlayer = otherPlayer;
+        m_turnText.text = currentPlayer.name + "ターン";
         otherPlayer = tempPlayer;
     }
 }
